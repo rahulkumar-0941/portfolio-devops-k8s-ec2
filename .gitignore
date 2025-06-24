@@ -1,0 +1,36 @@
+# OS/System Files
+.DS_Store
+Thumbs.db
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+
+# Ansible
+ansible/secrets.yml
+
+# Jenkins
+jenkins/secrets/
+jenkins/credentials/
+secrets.txt
+
+# Docker
+*.env
+docker/.env
+
+# secret
+*.key
+*.pem
+
+# files
+*.log
+dist/
+build/
+*.zip
+*.tar
+*.tar.gz
+*.jar
+bfg.jar

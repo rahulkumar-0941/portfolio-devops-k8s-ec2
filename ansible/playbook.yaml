@@ -1,0 +1,57 @@
+---
+- name: Install Apache, Git, Java 17, Jenkins and docker
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Update system packages
+      shell: yum update -y
+      ignore_errors: yes
+
+    - name: Install Apache HTTP Server
+      shell: yum install -y httpd
+      ignore_errors: yes
+
+    - name: Start and enable Apache
+      shell: |
+        systemctl start httpd
+        systemctl enable httpd
+
+    - name: Install Git
+      shell: yum install -y git
+      ignore_errors: yes
+
+    - name: Enable corretto17 (Amazon Linux 2)
+      shell: amazon-linux-extras enable corretto17 || true
+      ignore_errors: yes
+
+    - name: Install Java 17 (Corretto)
+      shell: yum install -y java-17-amazon-corretto
+      ignore_errors: yes
+
+    - name: Add Jenkins repo
+      shell: |
+        wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+    - name: Install Jenkins
+      shell: yum install -y jenkins
+      ignore_errors: yes
+
+    - name: Start and enable Jenkins
+      shell: |
+        systemctl daemon-reexec
+        systemctl enable jenkins
+        systemctl start jenkins
+
+    - name: Install Docker
+      shell: yum install -y docker
+      ignore_errors: yes
+
+    - name: Start and enable Docker
+      shell: |
+        systemctl daemon-reexec
+        systemctl enable docker
+        systemctl start docker
+

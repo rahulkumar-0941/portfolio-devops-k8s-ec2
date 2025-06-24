@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred-id')
+    DOCKER_IMAGE = "rahul0941/about-me-page"
+  }
+
+  stages {
+    stage('Clone Repo') {
+      steps {
+        git branch: 'main', url: 'https://github.com/rahulkumar-0941/Aboutmepage-deployment-on-k8s.git'
+      }
+    }
+
+    stage('Docker Login') {
+      steps {
+        sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh 'docker build -t $DOCKER_IMAGE .'
+      }
+    }
+
+    stage('Docker Push') {
+      steps {
+        sh 'docker push $DOCKER_IMAGE'
+      }
+    }
+  }
+}
