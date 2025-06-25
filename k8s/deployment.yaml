@@ -20,4 +20,4 @@ spec:
         - name: portfolio-deployment
           image: rahul0941/portfolio-page
           ports:
-            - containerPort: 8080
+            - containerPort: 80

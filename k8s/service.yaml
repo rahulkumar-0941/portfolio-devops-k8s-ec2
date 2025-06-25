@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: portfolio-deployment
+  name: portfolio-service
 spec:
   selector:
-    app: aboutmepage
+    app: portfolio-deployment   # MUST match your pod label
   ports:
     - protocol: TCP
-      port: 80        # Port exposed inside the cluster
-      targetPort: 80  # Port your container listens on
-  type: ClusterIP     # ✅ Don't include nodePort here
+      port: 80
+      targetPort: 80
