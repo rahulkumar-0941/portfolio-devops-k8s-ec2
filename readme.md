@@ -9,7 +9,8 @@ This project demonstrates a full DevOps lifecycle deployment of a portfolio webs
 ```
 .
 ├── Dockerfile
-├── Jenkinsfile
+├── jenkins/
+│   └── pipeline           
 ├── terraform/
 │   ├── main.tf
 │   └── variables.tf
